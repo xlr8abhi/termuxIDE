@@ -1,0 +1,18 @@
+#!/data/data/com.termux/files/usr/bin/bash
+
+if ! ping -c 1 github.com >/dev/null 2>&1; then
+    echo "Update Failed, Turn On Internet"
+    exit
+fi
+
+cd ~/termuxIDE/
+ov=$(git rev-parse HEAD)
+git pull --quiet
+cv=$(git rev-parse HEAD)
+cd
+
+if [[ "$ov" == "$cv" ]]; then
+  echo "No new Update Found"
+else
+  bash termuxIDE/main.sh
+fi
